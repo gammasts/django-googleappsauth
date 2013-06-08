@@ -53,17 +53,6 @@ class GoogleAuthMiddleware(object):
         # ok, die Seite muss auth'd werden. Haben wir vielleicht
         # schon einen geauth'd User in der aktuellen Session? 
         if request.user.is_authenticated():
-            try:
-                print timedelta( 0, settings.AUTO_LOGOUT_DELAY * 60, 0)
-                print datetime.now() - request.session['last_touch']
-                if datetime.now() - request.session['last_touch'] > timedelta( 0, settings.AUTO_LOGOUT_DELAY * 60, 0):
-                    print 'Time out!'
-                    djauth.logout(request)
-                    del request.session['last_touch']
-                    return HttpResponseRedirect(redirect_url)
-            except KeyError:
-                pass
-
             request.session['last_touch'] = datetime.now()
 
             return
