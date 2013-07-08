@@ -123,7 +123,7 @@ def callback(request):
                 raise RuntimeError("Authentifizierungsproblem: %s|%s|%s" % (username, identifier, attributes))
                 
         djauth.login(request, user)
-        request.session.set_expiry(300)
+        request.session.set_expiry(None)
         return HttpResponseRedirect(redirect_url)
     
     else:
